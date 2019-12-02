@@ -1,7 +1,9 @@
 const {
   isNumber,
   isString,
+  isBoolean,
   castToNumber,
+  castToString,
   getCaster
 } = require('../lib/types.js');
 
@@ -24,6 +26,15 @@ describe('validator module', () => {
       expect(isString(() => {})).toBeFalsy();
       expect(isString(true)).toBeFalsy();
     });
+    it('properly tells if a value is a boolean', () => {
+      expect(isBoolean(true)).toBeTruthy();
+      expect(isBoolean(false)).toBeTruthy(); 
+      expect(isBoolean(2)).toBeFalsy();
+      expect(isBoolean([])).toBeFalsy();
+      expect(isBoolean({})).toBeFalsy();
+      expect(isBoolean(() => {})).toBeFalsy();
+      expect(isBoolean('hi')).toBeFalsy();
+    });
 
 
   });
@@ -36,16 +47,23 @@ describe('validator module', () => {
       expect(castToNumber(false)).toEqual(0);
     });
 
-    it('throws if value is not castable to number', () => {
+    it('throws error if value is not castable to number', () => {
       expect(() => castToNumber('hi')).toThrowErrorMatchingSnapshot();
       expect(() => castToNumber({})).toThrowErrorMatchingSnapshot();
     });
 
-    // it('can cast values to a string', () => {
-    //   expect(castToString(3)).toEqual('3');
-    //   expect(castToString('3')).toEqual(3);
-    //   expect(castToString(true)).toEqual(1);
-    //   expect(castToString(false)).toEqual(0);
+    it('can cast values to a string', () => {
+      expect(castToString(3)).toEqual('3');
+      expect(castToString(3.02)).toEqual('3.02');
+      expect(castToString(true)).toEqual('true');
+      expect(castToString(false)).toEqual('false');
+      // expect(castToString({})).toEqual('{}');
+      // expect(castToString([])).toEqual('[]');
+    });
+
+    // it('throws error if value is not castable to string', () => {
+    //   expect(() => castToString(4)).toThrowErrorMatchingSnapshot();
+    //   expect(() => castToNumber({})).toThrowErrorMatchingSnapshot();
     // });
   });
 
