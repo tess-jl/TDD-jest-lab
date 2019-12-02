@@ -90,6 +90,7 @@ describe('validator module', () => {
       expect(castToString(false)).toEqual('false');
       expect(castToString({})).toEqual('[object Object]');
       expect(castToString([1, 2])).toEqual('1,2');
+      expect(castToString([])).toEqual('');
     });
 
     // it('throws error if value is not castable to string', () => {
