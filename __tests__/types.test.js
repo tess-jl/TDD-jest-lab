@@ -4,6 +4,7 @@ const {
   isBoolean,
   isArray,
   isObject,
+  isFunction,
   castToNumber,
   castToString,
   getCaster
@@ -57,6 +58,17 @@ describe('validator module', () => {
       expect(isObject(false)).toBeFalsy(); 
       expect(isObject(2)).toBeFalsy();
       expect(isObject('hi')).toBeFalsy();
+    });
+    it('properly tells if a value is a function', () => {
+      expect(isFunction(() => {})).toBeTruthy();
+      expect(isFunction({})).toBeFalsy();
+      expect(isFunction({ key: 'value' })).toBeFalsy();
+      expect(isFunction([])).toBeFalsy();
+      expect(isFunction([1, 2, 'three'])).toBeFalsy();
+      expect(isFunction(true)).toBeFalsy();
+      expect(isFunction(false)).toBeFalsy(); 
+      expect(isFunction(2)).toBeFalsy();
+      expect(isFunction('hi')).toBeFalsy();
     });
 
 
