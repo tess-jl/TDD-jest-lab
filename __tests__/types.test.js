@@ -70,8 +70,6 @@ describe('validator module', () => {
       expect(isFunction(2)).toBeFalsy();
       expect(isFunction('hi')).toBeFalsy();
     });
-
-
   });
 
   describe('casters', () => {
@@ -81,19 +79,17 @@ describe('validator module', () => {
       expect(castToNumber(true)).toEqual(1);
       expect(castToNumber(false)).toEqual(0);
     });
-
     it('throws error if value is not castable to number', () => {
       expect(() => castToNumber('hi')).toThrowErrorMatchingSnapshot();
       expect(() => castToNumber({})).toThrowErrorMatchingSnapshot();
     });
-
     it('can cast values to a string', () => {
       expect(castToString(3)).toEqual('3');
       expect(castToString(3.02)).toEqual('3.02');
       expect(castToString(true)).toEqual('true');
       expect(castToString(false)).toEqual('false');
-      // expect(castToString({})).toEqual('{}');
-      // expect(castToString([])).toEqual('[]');
+      expect(castToString({})).toEqual('[object Object]');
+      expect(castToString([1, 2])).toEqual('1,2');
     });
 
     // it('throws error if value is not castable to string', () => {
