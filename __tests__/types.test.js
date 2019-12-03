@@ -8,6 +8,7 @@ const {
   castToNumber,
   castToString,
   castToBoolean,
+  castToArray,
   getCaster
 } = require('../lib/types.js');
 
@@ -102,12 +103,15 @@ describe('validator module', () => {
       expect(castToBoolean([1, 2])).toEqual(true);
       expect(castToBoolean([])).toEqual(true);
     });
-
-
-    // it('throws error if value is not castable to string', () => {
-    //   expect(() => castToString(4)).toThrowErrorMatchingSnapshot();
-    //   expect(() => castToNumber({})).toThrowErrorMatchingSnapshot();
-    // });
+    it('can cast values to an array', () => {
+      expect(castToArray([])).toEqual([[]]);
+      expect(castToArray([1, 2])).toEqual([[1, 2]]);
+      expect(castToArray(3)).toEqual([3]);
+      expect(castToArray(3.02)).toEqual([3.02]);
+      expect(castToArray(true)).toEqual([true]);
+      expect(castToArray(false)).toEqual([false]);
+      expect(castToArray({})).toEqual([{}]);
+    });
   });
 
   it('can get the right caster', () => {
